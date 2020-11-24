@@ -50,9 +50,11 @@ func (wc *Counter) Run() error {
 // GetWordCounts returns list of words and number of occurrences
 func (wc *Counter) GetWordCounts() map[string]int {
 	wordCounts := make(map[string]int)
+	wc.wordsM.RLock()
 	for word, count := range wc.words {
 		wordCounts[word] = count
 	}
+	wc.wordsM.RUnlock()
 	return wordCounts
 }
 
