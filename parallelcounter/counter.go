@@ -12,7 +12,7 @@ import (
 type Counter struct {
 	counters     []*wordcounter.Counter
 	wordCountsC  chan []countformatter.WordCount
-	wg           *sync.WaitGroup
+	wg           sync.WaitGroup
 	ticker       *time.Ticker
 	pollInterval time.Duration
 }
@@ -28,7 +28,6 @@ func New(counters ...*wordcounter.Counter) *Counter {
 	r := Counter{
 		counters:     counters,
 		wordCountsC:  make(chan []countformatter.WordCount),
-		wg:           &sync.WaitGroup{},
 		pollInterval: defaultPollInterval,
 	}
 	return &r
